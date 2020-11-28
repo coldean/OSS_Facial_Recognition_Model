@@ -93,5 +93,5 @@ def select_tasks(user):
         else:
             print("wrong menu\n")
 
-select_tasks("man")
+#select_tasks("man")
 
