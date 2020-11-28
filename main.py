@@ -1,5 +1,5 @@
 from new_account import *
-from set_account import *
+from setting import *
 from delete_account import *
 from modify_account import *
 
@@ -16,7 +16,7 @@ while True:
     elif choice == 2:
         mod_face()
     elif choice == 3:
-        select_option()
+        select_tasks()
     elif choice == 4:
         del_face()
     elif choice == 5:
