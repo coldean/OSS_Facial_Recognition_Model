@@ -100,7 +100,8 @@ def tasks_to_symbolic(user, list):
 
 # (유저)
 # 작업들을 실행할 수 있는 옵션 메뉴 띄워줌
-def select_option(user):
+def select_option():
+    user = input("Please input user name: ")
     while True:
         print("\033[34m" + "================= main menu ==================")
         print("select menu")

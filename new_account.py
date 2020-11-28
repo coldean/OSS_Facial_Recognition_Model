@@ -57,6 +57,13 @@ def new_account():
     cap.release()
     cv2.destroyAllWindows()
     
+    print("Please enter the PIN number to register for your account.")
+    pin = input("PIN: ")
+    
+    pinfile_path = './users/' + new_account_name + '/pin.txt'
+    f = open(pinfile_path,  mode='wt', encoding='utf-8')
+    f.write(pin)
+    
     print('New account registration is complete.') #새로운 계정 등록 완료
     
     
