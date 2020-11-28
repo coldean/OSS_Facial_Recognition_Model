@@ -1,7 +1,7 @@
 import face_recognition
 import cv2
 import numpy as np
-import os
+import os, sys
 
 # This is a demo of running face recognition on live video from your webcam. It's a little more complicated than the
 # other example, but it includes some basic performance tweaks to make things run a lot faster:
@@ -110,6 +110,34 @@ while True:
             best_match_index = np.argmin(face_distances)
             if matches[best_match_index]:
                 name = known_face_names[best_match_index]
+                
+                dir = "user/" + user + "/default/"
+                checkfile = open(dir + "checklist.txt" , "r")
+                user_url = open(dir + "user_url.txt", "r")
+                check = checkfile.readline()
+                a = check[0] #checklib
+                b = check[1] #checkthu
+                c = check[2] #checkfir
+                if a == 1:
+                    a1 = "libreoffice&"
+                else:
+                    a1 = ""
+                if b == 1:
+                    b1 = "thunderbird&"
+                else:
+                    b1 = ""
+                if c == 1:
+                    c1 = "firefox"
+                    line = user_url.readline()
+                    while line:
+                         c1 += " " + line
+                         line = user_url.readline()
+                    c1 += "&"
+                else:
+                    c1 = ""
+                
+                d1 = "nautilus users/" + user + "/task"
+                os.system(a1 + b1 + c1 + d1)
 
             face_names.append(name)
 
