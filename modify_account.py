@@ -1,4 +1,4 @@
-#¾ó±¼ ¼öÁ¤
+#ì–¼êµ´ ìˆ˜ì •
 
 import os
 import shutil
@@ -46,24 +46,25 @@ def face_setting(userName):
     video.release()
     cv2.destroyAllWindows()
 
-while True:
-	user = input("¼öÁ¤ÇÒ À¯ÀúÀÇ ÀÌ¸§À» Àû¾îÁÖ¼¼¿ä : ")
-	userJpg = 'users/'+ user + '/' + user + '.jpg'
-	pin = int(input("pinÀ» Àû¾îÁÖ¼¼¿ä : "))
+def mod_face():
+	while True:
+		user = input("ìˆ˜ì •í•  ìœ ì €ì˜ ì´ë¦„ì„ ì ì–´ì£¼ì„¸ìš” : ")
+		userJpg = 'users/'+ user + '/' + user + '.jpg'
+		pin = int(input("pinì„ ì ì–´ì£¼ì„¸ìš” : "))
+	
+		if os.path.isdir('users/' + user):
+			pinFile = open('users/' + user + '/pin.txt', "r")
+			pinCheck = int(pinFile.readline())
 
-	if os.path.isdir('users/' + user):
-		pinFile = open('users/' + user + '/pin.txt', "r")
-		pinCheck = int(pinFile.readline())
-
-		if pinCheck == pin:
-			if os.path.isfile(userJpg):
-				print(user, "ÀÇ »çÁøÀÌ Àç¼³Á¤µË´Ï´Ù.")
-				os.remove(userJpg)
-				face_setting(user)
+			if pinCheck == pin:
+				if os.path.isfile(userJpg):
+					print(user, "ì˜ ì‚¬ì§„ì´ ì¬ì„¤ì •ë©ë‹ˆë‹¤.")
+					os.remove(userJpg)
+					face_setting(user)
+				else:
+					print(user, "ì˜ ì‚¬ì§„ì´ ì¡´ì¬í•˜ì§€ ì•Šì•„, ìƒˆë¡œ ë“±ë¡í•©ë‹ˆë‹¤.")
+					face_setting(user)
 			else:
-				print(user, "ÀÇ »çÁøÀÌ Á¸ÀçÇÏÁö ¾Ê¾Æ, »õ·Î µî·ÏÇÕ´Ï´Ù.")
-				face_setting(user)
+				print('pinì´ ì¼ì¹˜ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.')
 		else:
-			print('pinÀÌ ÀÏÄ¡ ÇÏÁö ¾Ê½À´Ï´Ù.')
-	else:
-		print(user, 'ÀÇ Á¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù. µî·ÏÀ» ¸ÕÀú ÇØÁÖ½Ê½Ã¿À.')
+			print(user, 'ì˜ ì •ë³´ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ë“±ë¡ì„ ë¨¼ì € í•´ì£¼ì‹­ì‹œì˜¤.')
