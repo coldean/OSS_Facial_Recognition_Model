@@ -10,7 +10,8 @@ def check_fefault_istrue(str):
         print("잘못된 입력\n")
         return "false input"
 
-def select_tasks(user):
+def select_tasks():
+    user = input("please input user name: ")
     while True:
         print("================= 세팅 모드 =====================")
         print("1. 기본 프로그램 설정")
@@ -93,5 +94,5 @@ def select_tasks(user):
         else:
             print("wrong menu\n")
 
-#select_tasks("man")
 
+#select_tasks("man")
