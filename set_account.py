@@ -92,11 +92,11 @@ def newline_delete(list):
 # task폴더에 심볼릭 링크를 생
 def tasks_to_symbolic(user, list):
     newlist = newline_delete(list)
-    if not os.path.exists("users/" + user + "/task/"):
-        os.mkdir("users/" + user + "/task/")
+    if not os.path.exists(user + "/task/"):
+        os.mkdir(user + "/task/")
     for i in newlist:
         head, tail = os.path.split(i)
-        os.symlink(i, "users/" + user + "/task/" + tail)
+        os.symlink(i, user + "/task/" + tail)
 
 # (유저)
 # 작업들을 실행할 수 있는 옵션 메뉴 띄워줌
@@ -104,16 +104,11 @@ def select_option(user):
     while True:
         print("\033[34m" + "================= main menu ==================")
         print("select menu")
-        print("1. change pin\n2. add tasks\n3. delete tasks\n4. exit")
+        print("1. add tasks\n2. delete tasks\n3. exit")
         print("===================================" + "\033[0m")
         menu = int(input(">> "))
 
         if menu == 1:
-            print("\n---------------- change pin ----------------")
-            pin = input("input new pin >> ")
-            change_pin(user, pin)
-            print("new pin : ", pin)
-        elif menu == 2:
             task_list = []
             print("\033[31m" + "\n---------------- add tasks ----------------")
             print("you can add multiple tasks\nselect menu")
@@ -137,7 +132,7 @@ def select_option(user):
                 else:
                     print("wrong menu\n")
 
-        elif menu == 3:
+        elif menu == 2:
             if not os.path.exists(user + "/tasks.txt"):
                 print("no tasks to delete!")
                 continue
@@ -164,7 +159,7 @@ def select_option(user):
                 else:
                     print("wrong menu\n")
 
-        elif menu == 4:
+        elif menu == 3:
             tasks_to_symbolic(user, read_tasks(user))
             break
 
