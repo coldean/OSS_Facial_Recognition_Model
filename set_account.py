@@ -88,6 +88,16 @@ def newline_delete(list):
     newlist = [tlist.rstrip() for tlist in list]
     return newlist
 
+# (유저, task list)
+# task폴더에 심볼릭 링크를 생
+def tasks_to_symbolic(user, list):
+    newlist = newline_delete(list)
+    if not os.path.exists("users/" + user + "/task/"):
+        os.mkdir("users/" + user + "/task/")
+    for i in newlist:
+        head, tail = os.path.split(i)
+        os.symlink(i, "users/" + user + "/task/" + tail)
+
 # (유저)
 # 작업들을 실행할 수 있는 옵션 메뉴 띄워줌
 def select_option(user):
@@ -155,6 +165,7 @@ def select_option(user):
                     print("wrong menu\n")
 
         elif menu == 4:
+            tasks_to_symbolic(user, read_tasks(user))
             break
 
         else :
