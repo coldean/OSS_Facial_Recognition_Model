@@ -7,14 +7,14 @@ from tkinter import filedialog
 # (pin 바꾸고자 하는 user이름, 새로운 pin)
 # users/user/pin.txt에 등록된 pin번호를 바꿔줌
 def change_pin(user, pin):
-    f = open(user + "/pin.txt", "w")
+    f = open('./users/' + user + "/pin.txt", "w")
     f.write(pin)
     f.close()
 
 # (유저 이름)
 # user의 task를 리스트로 한줄한줄 읽어온 다음 그 리스트를 리턴
 def read_tasks(user):
-    f = open(user + "/tasks.txt", "r")
+    f = open('./users/' + user + "/tasks.txt", "r")
     l = f.readlines();
     return l
 
@@ -22,7 +22,7 @@ def read_tasks(user):
 # tasks.txt파일의 처음부터 tasks 리스트의 목록을 덮어씌움.
 # 설정한 tasks의 리스트를 리턴
 def set_tasks(user, tasks):
-    f = open(user + "/tasks.txt", "w")
+    f = open('./users/' + user + "/tasks.txt", "w")
     for t in tasks:
         f.write(t + "\n")
     f.close()
@@ -32,16 +32,16 @@ def set_tasks(user, tasks):
 # tasks.txt파일에 중복 없이 새 tasks를 추가
 # 새로 설정한 tasks의 리스트를 리턴
 def add_tasks(user, tasks):
-    if os.path.exists(user + "/tasks.txt"):
+    if os.path.exists('./users/' + user + "/tasks.txt"):
         list = []
-        with open(user + "/tasks.txt") as f:
+        with open('./users/' + user + "/tasks.txt") as f:
             for t in tasks:
                 if t not in f.read():
                     list.append(t)
                     print(t)
                 f.seek(0)
         f.close()
-        f = open(user + "/tasks.txt", "a")
+        f = open('./users/' + user + "/tasks.txt", "a")
         for l in list:
             f.write(l + "\n")
         f.close()
@@ -92,15 +92,16 @@ def newline_delete(list):
 # task폴더에 심볼릭 링크를 생
 def tasks_to_symbolic(user, list):
     newlist = newline_delete(list)
-    if not os.path.exists("users/" + user + "/task/"):
-        os.mkdir("users/" + user + "/task/")
+    if not os.path.exists("./users/" + user + "/task/"):
+        os.mkdir("./users/" + user + "/task/")
     for i in newlist:
         head, tail = os.path.split(i)
-        os.symlink(i, "users/" + user + "/task/" + tail)
+        os.symlink(i, "./users/" + user + "/task/" + tail)
 
 # (유저)
 # 작업들을 실행할 수 있는 옵션 메뉴 띄워줌
-def select_option(user):
+def select_option():
+    user = input("Please input user name: ")
     while True:
         print("\033[34m" + "================= main menu ==================")
         print("select menu")
