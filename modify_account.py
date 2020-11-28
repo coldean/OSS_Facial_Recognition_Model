@@ -48,24 +48,23 @@ def face_setting(userName):
 
 
 def mod_face():
-	while True:
-		user = input("수정할 유저의 이름을 적어주세요 : ")
-		userJpg = 'users/'+ user + '/' + user + '.jpg'
-		pin = int(input("pin을 적어주세요 : "))
+	user = input("수정할 유저의 이름을 적어주세요 : ")
+	userJpg = 'users/'+ user + '/' + user + '.jpg'
+	pin = int(input("pin을 적어주세요 : "))
 	
-		if os.path.isdir('users/' + user):
-			pinFile = open('users/' + user + '/pin.txt', "r")
-			pinCheck = int(pinFile.readline())
+	if os.path.isdir('users/' + user):
+		pinFile = open('users/' + user + '/pin.txt', "r")
+		pinCheck = int(pinFile.readline())
 
-			if pinCheck == pin:
-				if os.path.isfile(userJpg):
-					print(user, "의 사진이 재설정됩니다.")
-					os.remove(userJpg)
-					face_setting(user)
-				else:
-					print(user, "의 사진이 존재하지 않아, 새로 등록합니다.")
-					face_setting(user)
+		if pinCheck == pin:
+			if os.path.isfile(userJpg):
+				print(user, "의 사진이 재설정됩니다.")
+				os.remove(userJpg)
+				face_setting(user)
 			else:
-				print('pin이 일치 하지 않습니다.')
+				print(user, "의 사진이 존재하지 않아, 새로 등록합니다.")
+				face_setting(user)
 		else:
-			print(user, '의 정보가 존재하지 않습니다. 등록을 먼저 해주십시오.')
+			print('pin이 일치 하지 않습니다.')
+	else:
+		print(user, '의 정보가 존재하지 않습니다. 등록을 먼저 해주십시오.')
