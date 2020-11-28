@@ -1,19 +1,26 @@
-#모든 매개변수는 string
+#모든 user 매개변수는 string
 
 import os
 from tkinter import *
 from tkinter import filedialog
 
+# (pin 바꾸고자 하는 user이름, 새로운 pin)
+# users/user/pin.txt에 등록된 pin번호를 바꿔줌
 def change_pin(user, pin):
     f = open(user + "/pin.txt", "w")
     f.write(pin)
     f.close()
 
+# (유저 이름)
+# user의 task를 리스트로 한줄한줄 읽어온 다음 그 리스트를 리턴
 def read_tasks(user):
     f = open(user + "/tasks.txt", "r")
     l = f.readlines();
     return l
 
+# (유저 이름, 설정할 작업 리스트)
+# tasks.txt파일의 처음부터 tasks 리스트의 목록을 덮어씌움.
+# 설정한 tasks의 리스트를 리턴
 def set_tasks(user, tasks):
     f = open(user + "/tasks.txt", "w")
     for t in tasks:
@@ -21,6 +28,9 @@ def set_tasks(user, tasks):
     f.close()
     return tasks
 
+# (유저이름, 설정할 작업 리스트)
+# tasks.txt파일에 중복 없이 새 tasks를 추가
+# 새로 설정한 tasks의 리스트를 리턴
 def add_tasks(user, tasks):
     if os.path.exists(user + "/tasks.txt"):
         list = []
@@ -41,6 +51,9 @@ def add_tasks(user, tasks):
     else:
         return set_tasks(user, tasks)
 
+# (유저이름, 작업 리스트)
+# tasks.txt 에 있는 task들 중에서 tasks리스트에 있는 경우 삭제턴
+# 삭제한 tasks 리스트를 리턴
 def delete_tasks(user, tasks):
     templist = read_tasks(user)
     olist = newline_delete(templist) #리스트의 문자열 요소의 공백문자 제거
@@ -51,6 +64,8 @@ def delete_tasks(user, tasks):
     set_tasks(user, nlist)
     return list(tset)
 
+# 파일 관리자를 불러들여서 파일을 선택
+# 파일 절대경로를 리턴
 def select_task_file():
     root = Tk()
     root.filename = filedialog.askopenfilename(initialdir="/home", title="choose your file",
@@ -59,15 +74,22 @@ def select_task_file():
     sys.stdout.flush()
     return root.filename
 
+# 파일 관리자를 불러들여서 디렉토리를 선택
+# 디렉토리 절대경로를 리턴
 def select_task_directory():
     dirname = filedialog.askdirectory()
     sys.stdout.flush()
     return dirname
 
+# (리스트)
+# 리스트의 목록에 있는 문자열의 뉴라인 문자를 제거
+# 뉴라인이 제거된 리스트를 리턴
 def newline_delete(list):
     newlist = [tlist.rstrip() for tlist in list]
     return newlist
 
+# (유저)
+# 작업들을 실행할 수 있는 옵션 메뉴 띄워줌
 def select_option(user):
     while True:
         print("\033[34m" + "================= main menu ==================")
@@ -135,7 +157,9 @@ def select_option(user):
         elif menu == 4:
             break
 
+        else :
+            print("wrong menu\n")
+
 
 #만약 오픈할 파일이 .desktop이라면 gtk-launch
 #만약 오픈할 파일이 텍스트라면 gedit
-select_option("man")
